@@ -19,12 +19,7 @@ func join[T any](chans ...chan T) <-chan T {
 		go func() {
 			defer wg.Done()
 
-			for ch != nil {
-				v, ok := <-ch
-				if !ok {
-					break
-				}
-
+			for v := range ch {
 				out <- v
 			}
 		}()
